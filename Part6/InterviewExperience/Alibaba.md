@@ -20,3 +20,51 @@
 
 
 面试者：陶程
+
+Python实现（标号1-n的n个人首尾相接，1到3报数，报到3的退出，求最后一个人的标号）
+
+
+```
+# coding=utf-8
+#!/usr/bin/env python
+import sys
+import random
+
+
+def run(n, mark, last, positionNum, loopDepth):
+    leftNum = n
+    for i in range(1, n+1):
+        if mark[i-1] == 0:
+            leftNum -= 1
+            continue
+        elif positionNum == 2:
+            mark[i-1] = 0
+            positionNum = 0
+            leftNum -= 1
+        else:
+            last = i
+            positionNum += 1
+    if leftNum > 1:
+        loopDepth += 1
+        run(n, mark, last, positionNum, loopDepth)
+    else:
+        print "mark:{}, last:{}, depth:{}".format(mark, last, loopDepth)
+        print "last number is: {}".format(last)
+
+
+def getLastDiv3(n):
+    mark = [1] * n
+    last = 1
+    positionNum = 0
+    loopDepth = 1
+    print 'N: {}'.format(n)
+    run(n, mark, last, positionNum, loopDepth)
+
+
+if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        total = int(sys.argv[1])
+    else:
+        sys.exit('Need param N!')
+    getLastDiv3(total)
+```
